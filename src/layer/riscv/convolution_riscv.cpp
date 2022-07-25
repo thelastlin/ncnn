@@ -1101,7 +1101,6 @@ int Convolution_riscv::forward_fp16sa(const Mat& bottom_blob, Mat& top_blob, con
 }
 #endif // __riscv_vector && __riscv_zfh
 
-
 int Convolution_rvv::create_pipeline_int8_rvv(const Option& opt)
 {
     const int packn = csrr_vlenb();
