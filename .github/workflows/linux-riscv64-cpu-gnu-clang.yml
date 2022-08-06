@@ -1,4 +1,4 @@
-name: linux-riscv64-gnu-cpu-clang
+name: linux-riscv64-cpu-gnu-clang
 on:
   push:
     branches: [master]

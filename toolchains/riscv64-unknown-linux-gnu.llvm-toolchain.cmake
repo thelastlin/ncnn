@@ -11,8 +11,6 @@ set(RISCV_ROOT_PATH ${RISCV_ROOT_PATH} CACHE STRING "root path to riscv gnu tool
 
 set(CMAKE_C_COMPILER "clang")
 set(CMAKE_CXX_COMPILER "clang++")
-set(CMAKE_C_COMPILER "clang++")
-set(CMAKE_CXX_COMPILER "clang++")
 set(CMAKE_SYSROOT "${RISCV_ROOT_PATH}/sysroot")
 
 set(CMAKE_C_COMPILER_TARGET "riscv64-unknown-linux-gnu")
