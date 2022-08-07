@@ -130,7 +130,7 @@ jobs:
         grep "float16_t" $RVV_HEAD_FILE || sudo sed -i -E "s,(typedef __rvv_float16m8_t vfloat16m8_t;),\0\ntypedef _Float16 float16_t;," $RVV_HEAD_FILE
 
     - name: configure
-      run: export RISCV_ROOT_PATH=$GITHUB_WORKSPACE/rv64gcv_zfh && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../toolchains/riscv64-unknown-linux-gnu.llvm-toolchain.cmake -DCMAKE_BUILD_TYPE=debug -DNCNN_COVERAGE=ON -DNCNN_RUNTIME_CPU=OFF -DNCNN_RVV=ON -DNCNN_OPENMP=OFF -DNCNN_BUILD_TOOLS=OFF -DNCNN_BUILD_EXAMPLES=OFF -DNCNN_BUILD_TESTS=ON ..
+      run: export RISCV_ROOT_PATH=$GITHUB_WORKSPACE/rv64gcv_zfh && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../toolchains/riscv64-unknown-linux-gnu.llvm-toolchain.cmake -DNCNN_BUILD_TOOLS=OFF -DNCNN_BUILD_EXAMPLES=OFF -DNCNN_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=debug  -DNCNN_RUNTIME_CPU=OFF -DNCNN_RVV=ON -DNCNN_OPENMP=OFF ..
     - name: build
       run: cmake --build build -j $(nproc)
 
