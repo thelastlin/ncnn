@@ -130,7 +130,7 @@ jobs:
         grep "float16_t" $RVV_HEAD_FILE || sudo sed -i -E "s,(typedef __rvv_float16m8_t vfloat16m8_t;),\0\ntypedef _Float16 float16_t;," $RVV_HEAD_FILE
 
     - name: configure
-      run: export RISCV_ROOT_PATH=$GITHUB_WORKSPACE/rv64gcv_zfh && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../toolchains/riscv64-unknown-linux-gnu.llvm-toolchain.cmake -DNCNN_BUILD_TOOLS=OFF -DNCNN_BUILD_EXAMPLES=OFF -DNCNN_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=debug  -DNCNN_RUNTIME_CPU=OFF -DNCNN_RVV=ON -DNCNN_OPENMP=OFF ..
+      run: export RISCV_ROOT_PATH=$GITHUB_WORKSPACE/rv64gcv_zfh && mkdir build && cd build && cmake -DCMAKE_TOOLCHAIN_FILE=../toolchains/riscv64-unknown-linux-gnu.llvm-toolchain.cmake -DNCNN_BUILD_TOOLS=OFF -DNCNN_BUILD_EXAMPLES=OFF -DNCNN_BUILD_TESTS=ON ..
     - name: build
       run: cmake --build build -j $(nproc)
 
@@ -142,6 +142,6 @@ jobs:
 
     - name: test-vlen128
       run: |
-        export PATH=/data/action/osd/qemu-install/bin:$PATH
+        export PATH=$GITHUB_WORKSPACE/qemu-install/bin:$PATH
         cd build
         TESTS_EXECUTABLE_LOADER=qemu-riscv64 TESTS_EXECUTABLE_LOADER_ARGUMENTS="-cpu;rv64,v=true,Zfh=true,vlen=128,elen=64,vext_spec=v1.0;-L;$GITHUB_WORKSPACE/rv64gcv_zfh/sysroot" ctest --output-on-failure -j $(nproc)
