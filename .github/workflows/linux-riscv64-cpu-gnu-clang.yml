@@ -121,7 +121,6 @@ jobs:
         sudo update-alternatives --remove-all clang
         sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-14 100
         sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-14 100
-        sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-14 100
     - name: apply-changes-for-clang
       run: |
         command -v clang++
