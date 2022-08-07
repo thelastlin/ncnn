@@ -30,7 +30,7 @@ permissions:
 
 jobs:
   linux-gcc-riscv64-rvv:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
 
@@ -114,6 +114,7 @@ jobs:
         sudo apt install lsb-release wget software-properties-common gnupg
         wget https://apt.llvm.org/llvm.sh
         chmod +x llvm.sh
+        sudo apt remove clang-11 llvm-11
         sudo ./llvm.sh 14
     - name: apply-changes-for-clang
       run: |
