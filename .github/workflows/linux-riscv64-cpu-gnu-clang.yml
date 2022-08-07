@@ -69,8 +69,8 @@ jobs:
       id: cache-riscv
       uses: actions/cache@v3
       with:
-        path: rv64gcv-install
-        key: rv64gcv-linux-install-20210504
+        path: rv64gcv_zfh
+        key: rv64gcv-linux-install-20220806
     # - name: install-riscv-build-deps
     #   if: steps.cache-riscv.outputs.cache-hit != 'true'
     #   run: |
@@ -116,8 +116,15 @@ jobs:
         chmod +x llvm.sh
         sudo apt remove clang-11 llvm-11
         sudo ./llvm.sh 14
+    - name: set-clang-default-version
+      run: |
+        sudo update-alternatives --remove-all clang
+        sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-14 100
+        sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-14 100
+        sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-14 100
     - name: apply-changes-for-clang
       run: |
+        command -v clang++
         CLANG_VERSION=`clang++ -v 2>&1 | head -1 | awk '{print $4}' | tr "-" '\n' | head -1`
         RVV_HEAD_FILE=/usr/lib/llvm-14/lib/clang/$CLANG_VERSION/include/riscv_vector.h
         grep "float32_t" $RVV_HEAD_FILE || sudo sed -i -E "s,(typedef __rvv_float32m8_t vfloat32m8_t;),\0\ntypedef float float32_t;," $RVV_HEAD_FILE
